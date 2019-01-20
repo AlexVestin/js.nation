@@ -13,6 +13,8 @@ let Canvas = new function() {
     let trigX = Math.round(Math.random());
     let trigY = Math.round(Math.random());
 
+    let internalCanvasSize = 800;
+
     let glow = Util.getCookie("glow") !== "false";
 
     let edge = window.navigator.userAgent.indexOf("Edge") > -1;
@@ -27,18 +29,19 @@ let Canvas = new function() {
         Callbacks.addCallback(shakeCallback, Priority.FIRST);
         Callbacks.addCallback(postCallback, Priority.LAST);
 
-        this.canvas.height = 700;
+
+        this.canvas.height = internalCanvasSize;
         this.canvas.width = ("width", $(window).width()) / ("width", $(window).height())* this.canvas.height;
         
         Canvas.context.shadowBlur = 12;
     }
 
-    this.setSize = function(size, aspectRatio) {
-        this.canvas.height = size;
+    this.setSize = function(aspectRatio) {
+        this.canvas.height = internalCanvasSize;
         if(!aspectRatio) {
-            this.canvas.width = ("width", $(window).width()) / ("width", $(window).height())* size;
+            this.canvas.width = ("width", $(window).width()) / ("width", $(window).height())* internalCanvasSize;
         }else {
-            this.canvas.width = size * aspectRatio;
+            this.canvas.width = internalCanvasSize * aspectRatio;
         }
     }
     
@@ -46,7 +49,7 @@ let Canvas = new function() {
         let w = $(window).width();
         let h = $(window).height();
 
-        this.setSize(700);
+        this.setSize();
         CanvasTexture.setSize(w*h);
         Canvas.context.fillStyle = "#FFFFFF";
         Canvas.context.shadowBlur = glow && !edge ? Config.glowRadius * Util.getResolutionMultiplier() : 0;

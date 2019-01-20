@@ -22,7 +22,7 @@ let CanvasTexture = new function() {
         mesh.material.depthTest = false;
 
         mesh.renderOrder = 999;
-        mesh.position.z = -200;
+        mesh.position.z = -150;
         mesh.onBeforeRender = function( renderer ) { glCanvasTexture.needsUpdate =true; renderer.clearDepth(); };
     
         Scene.glScene.add(mesh);

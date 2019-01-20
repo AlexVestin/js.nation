@@ -64,8 +64,8 @@ let Database = new function() {
             if (totalCount == 0) {
                 $("#welcome-full").css("display", "block");
                 GuiWrapper.welcomeOpen = true;
-                Background.resetBG();
-                Background.loadRedditBackground();
+                //Background.resetBG();
+                //Background.loadRedditBackground();
             } else {
                 Database.playCurrent();
             }
@@ -159,8 +159,8 @@ let Database = new function() {
                 elmArtist.value = "";
             }
 
-            Background.resetBG();
-            Background.loadRedditBackground();
+            //Background.resetBG();
+            //Background.loadRedditBackground();
             GuiWrapper.setTitle(tags.artist, tags.title);
         }, {
             dataReader: ID3.FileAPIReader(fileStore),
@@ -258,8 +258,8 @@ let Database = new function() {
         db.id3.where("id").equals(i).each(result => {
             GuiWrapper.setTitle(result.artist, result.title);
             Nodes.playSongFromUrl(URL.createObjectURL(result.audio));
-            Background.resetBG();
-            Background.loadRedditBackground();
+            //Background.resetBG();
+            //Background.loadRedditBackground();
         });
     }
 

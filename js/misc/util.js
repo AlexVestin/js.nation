@@ -44,13 +44,16 @@ let Util = new function() {
     }
 
     let updateResolutionMultiplier = function() {
+        /*
         let width = jqWindow.width();
         let height = jqWindow.height();
         if (width >= height) {
             resMult = width / 1920;
         } else {
             resMult = height / 1080;
-        }
+        }*/
+
+        return Canvas.canvas.width / Canvas.canvas.height;
     }
 
     this.clamp = function(val, min, max) {

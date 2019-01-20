@@ -19,6 +19,7 @@ let Main = new function() {
         Particles.setUp();
         Lighting.setUp();
         CanvasTexture.setUp();
+        GLBackground.loadRedditBackground();
 
         Renderer.setUp();
         AudioWrap.setUp();

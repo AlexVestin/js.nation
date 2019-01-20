@@ -1,43 +1,26 @@
 
-
+//https://stackoverflow.com/questions/39302814/mediastream-capture-canvas-and-audio-simultaneously
 let VideoExporter = new function(){
 
     let recorder;
-    let canvas;
-    let ctx; 
     let glCanvas;
-    let spectrumCanvas; 
 
     let chunks = [];
-    this.init = (width, height, FPS) => {
-        canvas = document.createElement("canvas");
-        ctx = canvas.getContext("2d");
-
+    this.start = (width, height, FPS) => {
         glCanvas        =   document.getElementById("canvas-gl");
-        spectrumCanvas  =   document.getElementById("canvas");
-        document.body.appendChild(canvas);
-
-        glCanvas.style.display = "none";
+        
         Renderer.updateSize(width, height);
-
-        spectrumCanvas.width  = width;
-        spectrumCanvas.height  = height;
-        spectrumCanvas.style.display = "none";
-
-
-        canvas.width  = glCanvas.width;
-        canvas.height = glCanvas.height;
-
-
+        Canvas.setSize(width/height);
+        Canvas.context.shadowBlur = 15;
         //alert("Recording video from the canvas, don't leave/close the tab")
         let audioDom = document.getElementsByTagName("audio")[0];
         audioDom.currentTime = 0;
-        audioDom.play();
 
-        let aStream = Nodes.getAudioStream();
-        let cStream = canvas.captureStream(FPS);
+        
+        //let aStream = Nodes.getAudioStream();
+        let aStream = audio.captureStream ? audio.captureStream() : audio.mozCaptureStream() ;
+        let cStream = glCanvas.captureStream(FPS);
         cStream.addTrack(aStream.getAudioTracks()[0]);
-        console.log(aStream.getAudioTracks()[0]);
 
         if(!MediaRecorder){
             alert("Media Recorder not supported in this browser");
@@ -49,34 +32,16 @@ let VideoExporter = new function(){
             cStream;
         recorder = new MediaRecorder(mixedStream);
 
+        audioDom.play();
+        recorder.start();
         recorder.ondataavailable = this.saveChunks;
         recorder.onstop = this.exportVideo;
-        recorder.start();
-        Callbacks.addCallback(this.drawCallback, Priority.LAST);
-    }
-
-    this.drawCallback = () => {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        ctx.drawImage(glCanvas, 0,0);
-        ctx.drawImage(spectrumCanvas,0,0);
-    }
+        
+    }   
 
     this.exportVideo = () => {
-        console.log("chunks", chunks)
         if(chunks.length) {
-            var blob = new Blob(chunks)
-            var vidURL = URL.createObjectURL(blob);
-
-            // Hacky way to start a download 
-            // https://stackoverflow.com/questions/23451726/saving-binary-data-as-file-using-javascript-from-a-browser
-            var a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display: none";
-
-            a.href = vidURL;
-            a.download = name;
-            a.click();
-            window.URL.revokeObjectURL(vidURL);   
+            saveAs(new Blob(chunks), "vid.mp4");  
         }
     }
 
@@ -84,9 +49,8 @@ let VideoExporter = new function(){
         e.data.size && chunks.push(e.data);
     }
 
-    this.stopRecording = () => {
+    this.stop = () => {
         recorder.stop();
-        this.exportVideo();
     }
       
 }
