@@ -11,8 +11,8 @@ let Renderer = new function() {
         renderer.domElement.id = "canvas-gl";
         $("#content").append(renderer.domElement);
         this.updateSize();
-        //requestAnimationFrame(render);
-        Callbacks.addCallback(render)
+        requestAnimationFrame(render);
+        //Callbacks.addCallback(render)
     }
 
     let render = function() {
@@ -20,7 +20,7 @@ let Renderer = new function() {
             return;
         }
 
-        //requestAnimationFrame(render);
+        requestAnimationFrame(render);
         renderer.render(Scene.glScene, Scene.glCamera);
     }
 

@@ -49,7 +49,6 @@ let GLBackground = new function() {
                 vertexShader,
                 fragmentShader,
             });
-
             
             // Plane with screen size
             // https://gist.github.com/ayamflow/96a1f554c3f88eef2f9d0024fc42940f
