@@ -83,6 +83,11 @@
         <!-- visual/gui -->
         <script src="./js/visual/gui/audio_wrap.js"></script>
         <script src="./js/visual/gui/gui_wrapper.js"></script>
+
+        <!-- new stuff for vidoe exporting -->
+        <script src="./js/export/export.js"></script>
+        <script src="./js/visual/gl/canvastexture.js"></script>
+
         <!-- root -->
         <script src="./js/main.js"></script>
     </head>
@@ -206,7 +211,7 @@
         </div>
 
         <div id="content">
-            <canvas id="canvas" style="display: block;"></canvas>
+            <canvas id="canvas" style="display: none;"></canvas>
         </div>
         <div id="background" class="lazyaf">
             <img src="" class="bgleft" id="limg1" onerror="this.style.display='none'">

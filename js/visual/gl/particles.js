@@ -37,7 +37,8 @@ let Particles = new function() {
             vertexShader: Shaders.vertShader,
             fragmentShader: Shaders.fragShader,
             blending: THREE.AdditiveBlending,
-            transparent: true
+            transparent: true,
+            depthTest: false
         });
 
         particleSystem = new THREE.Points(this.particlesGeom, pMaterial);

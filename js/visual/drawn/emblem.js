@@ -26,8 +26,8 @@ let Emblem = new function() {
         }
 
         currentRadius = Emblem.calcRadius(multiplier);
-        let xOffset = jqWindow.width() / 2 - currentRadius;
-        let yOffset = jqWindow.height() / 2 - currentRadius;
+        let xOffset = Canvas.canvas.width / 2 - currentRadius;
+        let yOffset = Canvas.canvas.height / 2 - currentRadius;
         Canvas.context.save();
         Canvas.context.fillStyle = "#000000";
         let dimension = currentRadius * 2;

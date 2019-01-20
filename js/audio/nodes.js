@@ -81,4 +81,7 @@ let Nodes = new function() {
         gainNode.gain.value = (Math.exp(volume) - 1) / (Math.E - 1) - 1;
     }
 
+    this.getAudioStream = function() {
+        return context.createMediaStreamDestination().stream;
+    }
 }

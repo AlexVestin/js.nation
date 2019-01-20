@@ -18,8 +18,9 @@ let Main = new function() {
         Scene.setUp();
         Particles.setUp();
         Lighting.setUp();
-        Renderer.setUp();
+        CanvasTexture.setUp();
 
+        Renderer.setUp();
         AudioWrap.setUp();
     }
 

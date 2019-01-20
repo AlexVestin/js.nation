@@ -26,11 +26,28 @@ let Canvas = new function() {
         Callbacks.addCallback(clearCallback, Priority.FIRST);
         Callbacks.addCallback(shakeCallback, Priority.FIRST);
         Callbacks.addCallback(postCallback, Priority.LAST);
+
+        this.canvas.height = 700;
+        this.canvas.width = ("width", $(window).width()) / ("width", $(window).height())* this.canvas.height;
+        
+        Canvas.context.shadowBlur = 12;
+    }
+
+    this.setSize = function(size, aspectRatio) {
+        this.canvas.height = size;
+        if(!aspectRatio) {
+            this.canvas.width = ("width", $(window).width()) / ("width", $(window).height())* size;
+        }else {
+            this.canvas.width = size * aspectRatio;
+        }
     }
     
     this.setStyling = function() {
-        $("#canvas").attr("width", $(window).width());
-        $("#canvas").attr("height", $(window).height());
+        let w = $(window).width();
+        let h = $(window).height();
+
+        this.setSize(700);
+        CanvasTexture.setSize(w*h);
         Canvas.context.fillStyle = "#FFFFFF";
         Canvas.context.shadowBlur = glow && !edge ? Config.glowRadius * Util.getResolutionMultiplier() : 0;
     }

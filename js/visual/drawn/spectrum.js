@@ -4,8 +4,6 @@ let Spectrum = new function() {
 
     let spectrumCache = Array();
 
-    let jqWindow;
-
     this.setUp = function() {
         Callbacks.addCallback(drawCallback, Priority.EARLY);
         jqWindow = $(window);
@@ -35,8 +33,7 @@ let Spectrum = new function() {
             let len = curSpectrum.length;
             for (let i = 0; i < len; i++) {
                 t = Math.PI * (i / (len - 1)) - MathConstants.HALF_PI;
-                r = curRad + Math.pow(curSpectrum[i] * Config.spectrumHeightScalar * Util.getResolutionMultiplier(),
-                        Config.exponents[s]);
+                r = curRad + Math.pow(curSpectrum[i] * Config.spectrumHeightScalar * Util.getResolutionMultiplier(), Config.exponents[s]);
                 x = r * Math.cos(t);
                 y = r * Math.sin(t);
                 points.push({x: x, y: y});
@@ -53,8 +50,8 @@ let Spectrum = new function() {
 
         Canvas.context.beginPath();
 
-        let halfWidth = jqWindow.width() / 2;
-        let halfHeight = jqWindow.height() / 2;
+        let halfWidth = Canvas.canvas.width / 2;
+        let halfHeight = Canvas.canvas.height / 2;
 
         for (let neg = 0; neg <= 1; neg++) {
             let xMult = neg ? -1 : 1;

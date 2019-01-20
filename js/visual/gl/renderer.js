@@ -11,7 +11,8 @@ let Renderer = new function() {
         renderer.domElement.id = "canvas-gl";
         $("#content").append(renderer.domElement);
         this.updateSize();
-        requestAnimationFrame(render);
+        //requestAnimationFrame(render);
+        Callbacks.addCallback(render)
     }
 
     let render = function() {
@@ -19,12 +20,17 @@ let Renderer = new function() {
             return;
         }
 
-        requestAnimationFrame(render);
+        //requestAnimationFrame(render);
         renderer.render(Scene.glScene, Scene.glCamera);
     }
 
-    this.updateSize = function() {
-        renderer.setSize($(document).width(), $(document).height());
+    this.updateSize = function(width, height) {
+        if(!width || !height) {
+            renderer.setSize($(document).width(), $(document).height());
+        }else {
+            renderer.setSize(width, height);
+        }
+        
     }
 
 }
